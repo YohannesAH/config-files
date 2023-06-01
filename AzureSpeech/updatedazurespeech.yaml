@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: speech-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: speech-app
+  template:
+    metadata:
+      labels:
+        app: speech-app
+    spec:
+      containers:
+        - name: speech-app
+          image: docker.io/yohannesah/microservice-first
+          ports:
+            - containerPort: 5004
+          env:
+            - name: SPEECH_KEY
+              value: "#######################"
+            - name: SPEECH_REGION
+              value: "westeurope"
+            - name: AZURE_ENDPOINT
+              value: "http://azure-service:5002"  # Update with the endpoint of azure-service
